@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -53,30 +54,20 @@ public class Controller implements Initializable {
             Dao_Players d = new Dao_Players();
 
             String id = user.getText();
-            Boolean x = d.searchId(id);
-            System.out.println(id);
+            List<String> x = d.searchPlayer(id);
             System.out.println(x);
 
-            if (x.equals(true)) {
+            if (!x.isEmpty()) {
 
-                String pass = password.getText();
-                Boolean y = d.searchId(pass);
+                if (Objects.equals(x.get(6), password.getText())) {
 
-                if (y.equals(true)) {
-
-                    List<String> search = d.searchall();
-
-                    for (int i = 0; i < search.size(); i++) {
-                        if (search.get(i).contains(id)) {
-                            nick = search.get(i);
-                            born = search.get(i + 1);
-                            city = search.get(i + 2);
-                            contact = search.get(i + 3);
-                            id_steam = search.get(i + 4);
-                            name = search.get(i + 5);
-                            password1 = search.get(i + 6);
-                        }
-                    }
+                    nick = x.get(0);
+                    born = x.get(1);
+                    city = x.get(2);
+                    contact = x.get(3);
+                    id_steam = x.get(4);
+                    name = x.get(5);
+                    password1 = x.get(6);
 
                     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     stage.close();
@@ -97,7 +88,7 @@ public class Controller implements Initializable {
                     Alert dialogoInfo = new Alert(Alert.AlertType.INFORMATION);
                     dialogoInfo.setTitle("Diálogo de informação");
                     dialogoInfo.setHeaderText("Informações erradas!");
-                    dialogoInfo.setContentText("Usúario ou senha errados.");
+                    dialogoInfo.setContentText("Senha incorreta.");
                     dialogoInfo.showAndWait();
                 }
 
@@ -106,7 +97,7 @@ public class Controller implements Initializable {
                 Alert dialogoInfo = new Alert(Alert.AlertType.INFORMATION);
                 dialogoInfo.setTitle("Diálogo de informação");
                 dialogoInfo.setHeaderText("Informações erradas!");
-                dialogoInfo.setContentText("Usúario ou senha errados.");
+                dialogoInfo.setContentText("Usúario não encontrado.");
                 dialogoInfo.showAndWait();
             }
 

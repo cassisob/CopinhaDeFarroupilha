@@ -1,5 +1,7 @@
 package sample.banco;
 
+import sample.Controller;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -43,17 +45,25 @@ public class Dao_Players {
         return search;
     }
 
-    public boolean searchId(String name) throws SQLException {
+    public List<String> searchPlayer(String name) throws SQLException {
         List<String> search = searchall();
-        String a;
+        List<String> player = new ArrayList<>();
 
-        for (String s : search) {
-            a = s;
-            if (a.equals(name)) {
-                return true;
+        for (int i = 0; i < search.size(); i = i + 7) {
+            if (search.get(i).equals(name)) {
+                player.add(search.get(i));
+                player.add(search.get(i + 1));
+                player.add(search.get(i + 2));
+                player.add(search.get(i + 3));
+                player.add(search.get(i + 4));
+                player.add(search.get(i + 5));
+                player.add(search.get(i + 6));
+
+                return player;
             }
         }
-        return false;
+        return player;
+
     }
 
     public void modify(Players p) throws SQLException{

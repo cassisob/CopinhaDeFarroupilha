@@ -120,8 +120,7 @@ public class Controller2 implements Initializable {
         contact.setText("Contato: " + Controller.contact);
         id_steam.setText("Id_steam: " + Controller.id_steam);
         name.setText("Nome: " + Controller.name);
-        String nick1 = Controller.nick.substring(1);
-        nick.setText("Nick: " + nick1);
+        nick.setText("Nick: " + Controller.nick);
 
     }
 }
